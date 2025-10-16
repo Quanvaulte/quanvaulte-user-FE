@@ -93,10 +93,10 @@ export default function FAQ() {
             return (
               <div
                 key={item.id}
-                className={`relative rounded-3xl  shadow-lg/65 ${styles.border}   `}>
+                className={`relative rounded-3xl shadow-lg/65 ${styles.border}   `}>
                 <button
                   onClick={() => toggleFAQ(item.id)}
-                  className={`w-full px-6 py-5 rounded-2xl transition-all duration-300 flex items-center justify-between`}>
+                  className={`w-full px-6 py-5 rounded-2xl cursor-pointer transition-all duration-300 flex items-center justify-between`}>
                   <span className="text-lg font-medium text-left text-[#1E1E1E]">
                     {item.question}
                   </span>
