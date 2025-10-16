@@ -2,7 +2,7 @@ export default function Footer() {
   const footerItems = ["Home", "Email Marketing", "Courses", "FAQ"];
 
   return (
-    <div className="bg-[#040718] text-center  flex flex-col gap-6 p-20 ">
+    <div className="bg-[#040718] text-center max-h-[511px] flex flex-col gap-6 py-24 ">
       <p
         className="font-normal
       text-base
@@ -14,12 +14,12 @@ export default function Footer() {
 
       <button
         className="bg-[#F9D342]
-      rounded-lg text-[#2C43EB] text-lg font-bold py-3 px-8
+      rounded-lg text-[#2C43EB] text-lg font-bold py-3 px-12
 cursor-pointer  max-w-48 mx-auto mb-12   ">
         Get started
       </button>
 
-      <ul className="flex justify-center items-center gap-6 ">
+      <ul className="flex justify-center items-center max-w-[493px] mx-auto gap-10 ">
         {footerItems.map((item) => (
           <li className="hover:text-[#F9D342] cursor-pointer" key={item}>
             {item}
