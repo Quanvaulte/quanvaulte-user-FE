@@ -46,11 +46,11 @@ export function PricingCard({
 
       <p className="text-white/70 font-normal">{subtitle}</p>
 
-      <div className="space-y-3 my-10 flex-grow">
+      <div className="space-y-3 my-10 flex-grow  ">
         {features.map((feature, index) => (
           <div
             key={index}
-            className={`${bgColor} backdrop-blur-sm rounded-lg p-3 md:p-4 flex items-center gap-3`}>
+            className={`${bgColor} backdrop-blur-sm  rounded-lg p-3 md:p-4 flex items-center gap-3`}>
             <div className="flex-shrink-0">
               <Image src={checkMark} alt="check" className="w-5 h-5"/>
             </div>

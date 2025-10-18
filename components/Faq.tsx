@@ -74,7 +74,7 @@ export default function FAQ() {
   };
 
   return (
-    <div className="min-h-screen bg-white py-20">
+    <div className="min-h-screen bg-white py-20 font-baloo">
       <div className="max-w-7xl mx-auto px-4">
         <div className="mb-12">
           <h1 className="text-5xl md:text-6xl font-semibold text-black">
