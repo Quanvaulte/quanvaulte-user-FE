@@ -12,7 +12,7 @@ export default function Footer() {
 
       <h2 className="text-4xl text-white font-normal font-baloo ">
         Let the learning begin with
-        <span className="text-[#F9D342] font-semibold"> Quanvaulte </span>today
+        <span className="text-[#F9D342] font-bold"> Quanvaulte </span>today
       </h2>
 
       <div className="flex items-center gap-2 justify-center">
