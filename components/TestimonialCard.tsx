@@ -4,6 +4,7 @@ import { useState, useEffect } from "react";
 import left from "@/public/left.png";
 import right from "@/public/right.png";
 import qoute from "@/public/qoute.png";
+import fanBlade from "@/public/fan-blade.svg";
 
 interface Testimonial {
   id: number;
@@ -68,7 +69,7 @@ export function TestimonialCard() {
     if (isSpinning) {
       const timer = setTimeout(() => {
         setIsSpinning(false);
-      }, 600);
+      }, 700);
       return () => clearTimeout(timer);
     }
   }, [isSpinning]);
@@ -78,7 +79,7 @@ export function TestimonialCard() {
   return (
     <div className="min-h-screen bg-white py-12 font-baloo md:py-20 px-4 md:px-6">
       <div className="max-w-7xl mx-auto">
-        <div className="mb-12 md:mb-16">
+        <div className="mb-12 md:mb-16 text-center lg:text-left">
           <h1 className="text-3xl md:text-5xl font-bold text-gray-900 mb-3 md:mb-4">
             What Our Parents and Students{" "}
             <span className="text-yellow-600">Are Saying</span>
@@ -89,8 +90,9 @@ export function TestimonialCard() {
         </div>
 
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 lg:gap-16 items-center">
+          {/* Fan + Image Section */}
           <div className="relative flex items-center justify-center">
-            {/* Spinning fan behind the image */}
+            {/* Fan Blades */}
             <div
               className={`absolute inset-0 flex items-center justify-center transition-transform ease-in-out ${
                 isSpinning ? "duration-700" : "duration-0"
@@ -98,28 +100,27 @@ export function TestimonialCard() {
               style={{
                 transform: `rotate(${rotation}deg)`,
               }}>
-              <svg
-                viewBox="0 0 400 400"
-                className="w-80 h-80 md:w-96 md:h-96 opacity-40 blur-sm">
-                <g transform="translate(200, 200)">
-                  {[...Array(8)].map((_, i) => (
-                    <rect
-                      key={i}
-                      x="-15"
-                      y="-300"
-                      width="50"
-                      height="250"
-                      fill="#D9D9D9"
-                      transform={`rotate(${i * 45})`}
-                      rx="6"
-                    />
-                  ))}
-                </g>
-              </svg>
+              {[...Array(8)].map((_, i) => (
+                <div
+                  key={i}
+                  className="absolute"
+                  style={{
+                    transform: `rotate(${i * 45}deg) translateY(-10rem)`,
+                  }}>
+                  <Image
+                    src={fanBlade}
+                    alt="Fan Blade"
+                    width={150}
+                    height={150}
+                    className="opacity-50 blur-[0.5px]"
+                    priority
+                  />
+                </div>
+              ))}
             </div>
 
-            {/* Image card */}
-            <div className="relative z-20 bg-white rounded-2xl shadow-xl p-2 border-4 border-purple-600 transform rotate-3">
+            {/* Profile Image Card */}
+            <div className="relative z-20 bg-white rounded-2xl shadow-xl p-2 border-4 border-purple-600 transform">
               <Image
                 src={currentTestimonial.image}
                 alt={currentTestimonial.name}
@@ -129,7 +130,7 @@ export function TestimonialCard() {
               />
             </div>
 
-            {/* Name tag */}
+            {/* Name Tag */}
             <div className="absolute -bottom-4 left-1/2 -translate-x-1/2 bg-white px-6 py-3 rounded-lg shadow-lg border-2 border-gray-100 z-30">
               <p className="font-bold text-gray-900 text-center text-sm md:text-base">
                 {currentTestimonial.name}
@@ -140,9 +141,10 @@ export function TestimonialCard() {
             </div>
           </div>
 
+          {/* Quote + Controls Section */}
           <div className="relative mt-16 lg:mt-0">
             <div className="mb-6">
-              <Image src={qoute} alt="" className="w-20 h-20"/>
+              <Image src={qoute} alt="quote" className="w-20 h-20" />
             </div>
 
             <blockquote className="text-gray-800 text-lg md:text-xl leading-relaxed mb-8">
@@ -152,15 +154,15 @@ export function TestimonialCard() {
             <div className="flex gap-3">
               <button
                 onClick={handlePrevious}
-                className="w-12 h-12 rounded-full cursor-pointer text-white flex items-center justify-center transition-colors duration-200"
+                className="w-12 h-12 rounded-full cursor-pointer text-white flex items-center justify-center transition-transform duration-200 hover:scale-110"
                 aria-label="Previous testimonial">
-                <Image src={left} alt="" className="w-10 h-10" />
+                <Image src={left} alt="previous" className="w-10 h-10" />
               </button>
               <button
                 onClick={handleNext}
-                className="w-12 h-12 rounded-full text-white cursor-pointer flex items-center justify-center transition-colors duration-200"
+                className="w-12 h-12 rounded-full text-white cursor-pointer flex items-center justify-center transition-transform duration-200 hover:scale-110"
                 aria-label="Next testimonial">
-                <Image src={right} alt="" className="w-10 h-10" />
+                <Image src={right} alt="next" className="w-10 h-10" />
               </button>
             </div>
           </div>
