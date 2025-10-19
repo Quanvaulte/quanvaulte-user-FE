@@ -5,6 +5,7 @@ import left from "@/public/left.png";
 import right from "@/public/right.png";
 import qoute from "@/public/qoute.png";
 import fanBlade from "@/public/fan-blade.svg";
+import testimonialImage from "@/public/testimonial-image.svg";
 
 interface Testimonial {
   id: number;
@@ -23,6 +24,7 @@ const testimonials: Testimonial[] = [
     role: "Tunde's Father",
     image:
       "https://images.pexels.com/photos/1239291/pexels-photo-1239291.jpeg?auto=compress&cs=tinysrgb&w=400&h=400&fit=crop",
+      // testimonialImage
   },
   {
     id: 2,
@@ -72,10 +74,10 @@ export function TestimonialCard() {
     <div className="bg-white py-10 md:py-20 px-4 sm:px-6 font-baloo overflow-hidden">
       <div className="max-w-7xl mx-auto">
         {/* Header */}
-        <div className="mb-10 md:mb-16 text-center">
+        <div className="mb-10 md:mb-16">
           <h1 className="text-2xl sm:text-3xl md:text-5xl font-bold text-gray-900 mb-3">
             What Our Parents and Students{" "}
-            <span className="text-yellow-600">Are Saying</span>
+            <span className="text-[#9D8528]">Are Saying</span>
           </h1>
           <p className="text-gray-600 text-sm sm:text-base md:text-lg">
             See how learning with us has inspired confidence and success
@@ -102,8 +104,8 @@ export function TestimonialCard() {
                   <Image
                     src={fanBlade}
                     alt="Fan Blade"
-                    width={100}
-                    height={100}
+                    width={150}
+                    height={150}
                     className="opacity-50 blur-[0.5px]"
                     priority
                   />
@@ -165,13 +167,13 @@ export function TestimonialCard() {
                 onClick={() => handleChange("left")}
                 className="w-10 h-10 sm:w-12 sm:h-12 rounded-full cursor-pointer flex items-center justify-center hover:scale-110 transition-transform"
                 aria-label="Previous testimonial">
-                <Image src={left} alt="previous" className="w-6 h-6" />
+                <Image src={left} alt="previous" className="w-10 h-10" />
               </button>
               <button
                 onClick={() => handleChange("right")}
                 className="w-10 h-10 sm:w-12 sm:h-12 rounded-full flex items-center cursor-pointer justify-center hover:scale-110 transition-transform"
                 aria-label="Next testimonial">
-                <Image src={right} alt="next" className="w-6 h-6" />
+                <Image src={right} alt="next" className="w-10 h-10" />
               </button>
             </div>
           </div>
