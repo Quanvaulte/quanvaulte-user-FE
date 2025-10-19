@@ -111,29 +111,35 @@ export function TestimonialCard() {
               ))}
             </div>
 
-            {/* Profile Image */}
-            <div className="relative z-20 w-64 h-80">
-              <Image
-                key={current.id}
-                src={current.image}
-                alt={current.name}
-                fill
-                className={`object-cover rounded-xl shadow-lg transition-all duration-700 transform ${
-                  animating
-                    ? direction === "right"
-                      ? "translate-x-full opacity-0"
-                      : "-translate-x-full opacity-0"
-                    : "translate-x-0 opacity-100"
-                }`}
-              />
-            </div>
+            {/* Profile Image + Text */}
+            <div className="relative z-20 flex flex-col gap-2">
+              <div
+                className="relative w-64 h-80 rounded-xl overflow-hidden
+               shadow-[12px_12px_0_#2C43EB,0_12px_0_#2C43EB]
+               transition-all duration-700">
+                <Image
+                  key={current.id}
+                  src={current.image}
+                  alt={current.name}
+                  fill
+                  className={`object-cover rounded-xl transition-all duration-700 transform ${
+                    animating
+                      ? direction === "right"
+                        ? "translate-x-full opacity-0"
+                        : "-translate-x-full opacity-0"
+                      : "translate-x-0 opacity-100"
+                  }`}
+                />
+              </div>
 
-            {/* Text below image */}
-            <div className=" mt-3 ">
-              <p className="font-bold text-gray-900 text-sm sm:text-base">
-                {current.name}
-              </p>
-              <p className="text-gray-600 text-xs sm:text-sm">{current.role}</p>
+              <div className="mt-4">
+                <p className="font-bold text-gray-900 text-sm sm:text-base">
+                  {current.name}
+                </p>
+                <p className="text-gray-600 text-xs sm:text-sm">
+                  {current.role}
+                </p>
+              </div>
             </div>
           </div>
 
@@ -157,13 +163,13 @@ export function TestimonialCard() {
             <div className="flex justify-center lg:justify-start gap-4">
               <button
                 onClick={() => handleChange("left")}
-                className="w-10 h-10 sm:w-12 sm:h-12 rounded-full flex items-center justify-center hover:scale-110 transition-transform"
+                className="w-10 h-10 sm:w-12 sm:h-12 rounded-full cursor-pointer flex items-center justify-center hover:scale-110 transition-transform"
                 aria-label="Previous testimonial">
                 <Image src={left} alt="previous" className="w-6 h-6" />
               </button>
               <button
                 onClick={() => handleChange("right")}
-                className="w-10 h-10 sm:w-12 sm:h-12 rounded-full flex items-center justify-center hover:scale-110 transition-transform"
+                className="w-10 h-10 sm:w-12 sm:h-12 rounded-full flex items-center cursor-pointer justify-center hover:scale-110 transition-transform"
                 aria-label="Next testimonial">
                 <Image src={right} alt="next" className="w-6 h-6" />
               </button>
