@@ -3,6 +3,7 @@ import Image from "next/image";
 import { useState, useEffect } from "react";
 import left from "@/public/left.png";
 import right from "@/public/right.png";
+import qoute from "@/public/qoute.png";
 
 interface Testimonial {
   id: number;
@@ -75,7 +76,7 @@ export function TestimonialCard() {
   const currentTestimonial = testimonials[currentIndex];
 
   return (
-    <div className="min-h-screen bg-white py-12 md:py-20 px-4 md:px-6">
+    <div className="min-h-screen bg-white py-12 font-baloo md:py-20 px-4 md:px-6">
       <div className="max-w-7xl mx-auto">
         <div className="mb-12 md:mb-16">
           <h1 className="text-3xl md:text-5xl font-bold text-gray-900 mb-3 md:mb-4">
@@ -141,12 +142,7 @@ export function TestimonialCard() {
 
           <div className="relative mt-16 lg:mt-0">
             <div className="mb-6">
-              <svg
-                viewBox="0 0 80 60"
-                className="w-16 h-12 text-gray-300"
-                fill="currentColor">
-                <path d="M0 30 Q0 0 30 0 L30 15 Q15 15 15 30 L30 30 L30 60 L0 60 Z M50 30 Q50 0 80 0 L80 15 Q65 15 65 30 L80 30 L80 60 L50 60 Z" />
-              </svg>
+              <Image src={qoute} alt="" className="w-20 h-20"/>
             </div>
 
             <blockquote className="text-gray-800 text-lg md:text-xl leading-relaxed mb-8">
