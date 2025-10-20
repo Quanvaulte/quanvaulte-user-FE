@@ -7,6 +7,7 @@ import robot from "@/public/robots.svg";
 import ai from "@/public/ai.svg";
 import cybersecurity from "@/public/cybersecurity.svg";
 import bgDesign from "@/public/bgdesign.svg";
+import arrowRight from "@/public/arrow-right.svg";
 
 interface Course {
   title: string;
@@ -69,7 +70,6 @@ export function PopularCourses() {
         {/* Courses Grid */}
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 md:gap-6">
           {courses.map((course, index) => {
-            // Position bgDesign differently based on index
             const bgPosition =
               index === 0
                 ? "left bottom"
@@ -87,7 +87,6 @@ export function PopularCourses() {
                   backgroundSize: "cover, 60%",
                   backgroundPosition: `center, ${bgPosition}`,
                 }}>
-                {/* Overlay gradient for readability */}
                 <div className="absolute inset-0 bg-black/20 mix-blend-overlay" />
 
                 <div className="relative z-10">
@@ -105,14 +104,16 @@ export function PopularCourses() {
 
                   <button className="text-white font-semibold cursor-pointer flex items-center gap-2 group/btn text-sm md:text-base hover:gap-3 transition-all duration-200">
                     See more
-                    <ArrowRight
+                    <Image
+                      src={arrowRight}
+                      alt=""
+                      width={20}
+                      height={20}
                       className="w-4 h-4 md:w-5 md:h-5"
-                      strokeWidth={3}
                     />
                   </button>
                 </div>
 
-                {/* Decorative SVGs */}
                 <div className="absolute inset-0 opacity-10">
                   <svg
                     className="absolute bottom-0 right-0 w-48 h-48 md:w-56 md:h-56"
