@@ -1,4 +1,3 @@
-import { Check, Play } from "lucide-react";
 import Image from "next/image";
 import tick from "@/public/tick.svg";
 import playBtn from "@/public/play-btn.svg";
