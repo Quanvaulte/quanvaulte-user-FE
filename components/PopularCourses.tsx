@@ -1,4 +1,4 @@
-import { ArrowRight, ChevronRight } from "lucide-react";
+import {  ChevronRight } from "lucide-react";
 import Image, { type StaticImageData } from "next/image";
 
 import coursesBg from "@/public/coursesBg.svg";

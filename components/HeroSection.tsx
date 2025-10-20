@@ -4,22 +4,21 @@ import heroBg from "@/public/heroBg.svg";
 
 export function HeroSection() {
   return (
-    <div className="bg-[#2C43EB] min-h-screen relative font-baloo overflow-hidden"
-  style={{
-  backgroundImage: `url(${heroBg.src})`,
-  backgroundRepeat: "no-repeat",
-  backgroundSize: "cover",
-  backgroundPosition: "center",
-}}
-
-    >
+    <div
+      className="bg-[#2C43EB] min-h-screen relative font-baloo overflow-hidden"
+      style={{
+        backgroundImage: `url(${heroBg.src})`,
+        backgroundRepeat: "no-repeat",
+        backgroundSize: "cover",
+        backgroundPosition: "center",
+      }}>
       <nav className="max-w-7xl mx-auto px-4 md:px-6 py-4 md:py-6 flex items-center justify-between">
         <div className="flex items-center gap-6 md:gap-8">
-          <h1 className="text-[#F9D342] text-xl md:text-2xl font-bold">
+          <h1 className="text-[#F9D342] text-xl md:text-6xl font-bold">
             QuanVaulte
           </h1>
 
-          <div className="hidden md:flex items-center gap-6 text-white text-sm lg:text-base">
+          <div className="hidden md:flex items-center gap-6 text-gray-300 font-bold text-md lg:text-lg">
             <a
               href="#"
               className="hover:text-[#F9D342] transition-colors duration-200">
@@ -58,22 +57,27 @@ export function HeroSection() {
             <h2 className="text-4xl md:text-5xl lg:text-6xl xl:text-7xl font-bold mb-4 md:mb-6 leading-tight">
               Join{" "}
               <span className="relative inline-block">
-                <span className="relative z-10">Ubong</span>
+                <span className="relative z-10 px-1">Ubong</span>
                 <svg
-                  className="absolute -bottom-2 left-0 w-full"
-                  height="12"
-                  viewBox="0 0 200 12"
+                  className="absolute -inset-1 w-full h-full"
+                  viewBox="0 0 120 50"
                   fill="none"
-                  xmlns="http://www.w3.org/2000/svg">
+                  xmlns="http://www.w3.org/2000/svg"
+                  preserveAspectRatio="none">
                   <path
-                    d="M2 8 Q 50 2, 100 8 T 198 8"
+                    d="M5 25
+         C 0 2, 60 2, 120 15
+         C 110 50, 150 45, 16 40
+         C 2 40, 10 40, 5 25 Z"
                     stroke="#FCD34D"
-                    strokeWidth="4"
+                    strokeWidth="2"
                     fill="none"
                     strokeLinecap="round"
+                    strokeLinejoin="round"
+                    className="animate-draw scribble-line"
                   />
                 </svg>
-              </span>{" "}
+              </span>
               to
               <br />
               Learn tech skills
