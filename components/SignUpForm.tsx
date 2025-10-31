@@ -1,32 +1,38 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 "use client";
 
-import React, { useState } from "react";
+import React, { useState,useEffect } from "react";
 import Link from "next/link";
-import { Eye, EyeOff, User, Mail, Lock } from "lucide-react";
+import { motion, AnimatePresence } from "framer-motion";
+import { Eye, EyeOff, User, Mail, Lock, Loader2 } from "lucide-react";
+import { useSignup } from "@/hooks/useSignup";
+import { useRouter } from "next/navigation";
 
 export default function SignUpForm() {
+  const { handleRegister, loading, error, success } = useSignup();
+
   const [formData, setFormData] = useState({
     name: "",
     email: "",
     password: "",
     confirmPassword: "",
   });
-
   const [errors, setErrors] = useState<Record<string, string>>({});
   const [touched, setTouched] = useState<Record<string, boolean>>({});
   const [showPassword, setShowPassword] = useState(false);
   const [showConfirm, setShowConfirm] = useState(false);
-  const [loading, setLoading] = useState(false);
+  const router = useRouter();
 
+  // ✅ Field validation
   const validateField = (name: string, value: string): string => {
     switch (name) {
       case "name":
         return value.trim().length < 2
-          ? "Name must be at least 2 characters long"
+          ? "Name must be at least 2 characters"
           : "";
       case "email":
         return !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(value)
-          ? "Please enter a valid email address"
+          ? "Enter a valid email address"
           : "";
       case "password":
         if (value.length < 8) return "Password must be at least 8 characters";
@@ -42,60 +48,83 @@ export default function SignUpForm() {
     }
   };
 
+  // ✅ Input Handlers
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const { name, value } = e.target;
     setFormData((prev) => ({ ...prev, [name]: value }));
+
     if (touched[name]) {
-      const error = validateField(name, value);
-      setErrors((prev) => ({ ...prev, [name]: error }));
+      setErrors((prev) => ({ ...prev, [name]: validateField(name, value) }));
     }
   };
 
   const handleBlur = (e: React.FocusEvent<HTMLInputElement>) => {
     const { name, value } = e.target;
     setTouched((prev) => ({ ...prev, [name]: true }));
-    const error = validateField(name, value);
-    setErrors((prev) => ({ ...prev, [name]: error }));
+    setErrors((prev) => ({ ...prev, [name]: validateField(name, value) }));
   };
 
-  const handleSubmit = async (e: React.FormEvent) => {
-    e.preventDefault();
-
-    const newErrors: Record<string, string> = {};
-    Object.entries(formData).forEach(([key, value]) => {
-      const error = validateField(key, value);
-      if (error) newErrors[key] = error;
-    });
-
-    setErrors(newErrors);
-    setTouched({
-      name: true,
-      email: true,
-      password: true,
-      confirmPassword: true,
-    });
-
-    if (Object.keys(newErrors).length === 0) {
-      try {
-        setLoading(true);
-        // Simulate request
-        await new Promise((resolve) => setTimeout(resolve, 1000));
-        alert("Account created successfully!");
-      } catch (err) {
-        alert("Something went wrong. Please try again.");
-      } finally {
-        setLoading(false);
-      }
+  // ✅ Redirect after success
+  useEffect(() => {
+    if (success) {
+      // Delay navigation slightly for animation feedback
+      const timeout = setTimeout(() => {
+        // router.push("/verify-email");
+      }, 1500);
+      return () => clearTimeout(timeout);
     }
-  };
+  }, [success, router]);
+
+  // ✅ Form Submit
+const handleSubmit = async (e: React.FormEvent) => {
+  e.preventDefault();
+
+  // Validate all fields
+  const newErrors: Record<string, string> = {};
+  Object.keys(formData).forEach((key) => {
+    const error = validateField(key, (formData as any)[key]);
+    if (error) newErrors[key] = error;
+  });
+
+  setErrors(newErrors);
+  setTouched({
+    name: true,
+    email: true,
+    password: true,
+    confirmPassword: true,
+  });
+
+  if (Object.keys(newErrors).length > 0) return;
+
+  const res = await handleRegister({
+    name: formData.name,
+    email: formData.email,
+    password: formData.password,
+  });
+
+  if (res) {
+    // Store temporary token & userId (optional if needed later)
+    localStorage.setItem("pendingUserId", res.userId);
+    localStorage.setItem("registrationToken", res.token);
+
+    // Show feedback before redirect
+    alert(`${res.message}. Token: ${res.token}`);
+
+    // Navigate to verify-email page with userId in query params
+    router.push(`/verify-email?userId=${res.userId}`);
+  }
+};
+
 
   const handleGoogleSignIn = () => {
-    alert("Google Sign-In would be implemented here.");
+    alert("🔜 Google Sign-In integration coming soon!");
   };
 
   return (
-    <div className="w-full md:w-1/2 bg-white rounded-2xl shadow-xl p-20 font-sans transition-all duration-300">
-      {/* Header */}
+    <motion.div
+      initial={{ opacity: 0, y: 10 }}
+      animate={{ opacity: 1, y: 0 }}
+      className="w-full  bg-white rounded-2xl shadow-xl p-10 sm:p-16 font-sans transition-all duration-300">
       <div className="text-center mb-8">
         <h1 className="text-4xl font-extrabold mb-1 text-[#F9D342]">
           QuanVaulte
@@ -108,117 +137,90 @@ export default function SignUpForm() {
         </p>
       </div>
 
-      {/* Form */}
+      {/* ✅ Animated Feedback */}
+      <AnimatePresence>
+        {error && (
+          <motion.p
+            initial={{ opacity: 0, y: -10 }}
+            animate={{ opacity: 1, y: 0 }}
+            exit={{ opacity: 0, y: -10 }}
+            className="text-red-500 text-center text-sm bg-red-50 p-2 rounded-md mb-3">
+            {error}
+          </motion.p>
+        )}
+        {success && (
+          <motion.p
+            initial={{ opacity: 0, y: -10 }}
+            animate={{ opacity: 1, y: 0 }}
+            exit={{ opacity: 0, y: -10 }}
+            className="text-green-600 text-center text-sm bg-green-50 p-2 rounded-md mb-3">
+            🎉 Account created successfully!
+          </motion.p>
+        )}
+      </AnimatePresence>
+
+      {/* ✅ Form */}
       <form onSubmit={handleSubmit} className="space-y-5">
-        {/* Name */}
-        <div className="relative">
-          <User
-            size={18}
-            className="absolute left-3 top-1/2 -translate-y-1/2 text-gray-400"
-          />
-          <input
-            type="text"
-            name="name"
-            placeholder="Full name"
-            value={formData.name}
-            onChange={handleChange}
-            onBlur={handleBlur}
-            className={`w-full pl-10 text-black pr-4 py-3 rounded-lg border-2 transition-all outline-none ${
-              errors.name && touched.name
-                ? "border-red-300 bg-red-50"
-                : "border-gray-200 hover:border-gray-400 focus:border-[#2C43EB]"
-            }`}
-          />
-          {errors.name && touched.name && (
-            <p className="text-red-500 text-xs mt-1">{errors.name}</p>
-          )}
-        </div>
+        {["name", "email", "password", "confirmPassword"].map((field) => {
+          const Icon =
+            field === "name" ? User : field === "email" ? Mail : Lock;
 
-        {/* Email */}
-        <div className="relative">
-          <Mail
-            size={18}
-            className="absolute left-3 top-1/2 -translate-y-1/2 text-gray-400"
-          />
-          <input
-            type="email"
-            name="email"
-            placeholder="Email address"
-            value={formData.email}
-            onChange={handleChange}
-            onBlur={handleBlur}
-            className={`w-full pl-10 pr-4 py-3 text-black  rounded-lg border-2 transition-all outline-none ${
-              errors.email && touched.email
-                ? "border-red-300 bg-red-50"
-                : "border-gray-200 hover:border-gray-400 focus:border-[#2C43EB]"
-            }`}
-          />
-          {errors.email && touched.email && (
-            <p className="text-red-500 text-xs mt-1">{errors.email}</p>
-          )}
-        </div>
+          const isPasswordField =
+            field === "password" || field === "confirmPassword";
+          const show = field === "password" ? showPassword : showConfirm;
+          const setShow =
+            field === "password" ? setShowPassword : setShowConfirm;
 
-        {/* Password */}
-        <div className="relative">
-          <Lock
-            size={18}
-            className="absolute left-3 top-1/2  -translate-y-1/2 text-gray-400"
-          />
-          <input
-            type={showPassword ? "text" : "password"}
-            name="password"
-            placeholder="Password"
-            value={formData.password}
-            onChange={handleChange}
-            onBlur={handleBlur}
-            className={`w-full pl-10 pr-10 py-3 text-black  rounded-lg border-2 transition-all outline-none ${
-              errors.password && touched.password
-                ? "border-red-300 bg-red-50"
-                : "border-gray-200 hover:border-gray-400 focus:border-[#2C43EB]"
-            }`}
-          />
-          <button
-            type="button"
-            onClick={() => setShowPassword((prev) => !prev)}
-            className="absolute right-3 top-1/2 -translate-y-1/2 text-gray-500 hover:text-gray-700">
-            {showPassword ? <EyeOff size={18} /> : <Eye size={18} />}
-          </button>
-          {errors.password && touched.password && (
-            <p className="text-red-500 text-xs mt-1">{errors.password}</p>
-          )}
-        </div>
-
-        {/* Confirm Password */}
-        <div className="relative">
-          <Lock
-            size={18}
-            className="absolute left-3 top-1/2 -translate-y-1/2 text-gray-400"
-          />
-          <input
-            type={showConfirm ? "text" : "password"}
-            name="confirmPassword"
-            placeholder="Confirm password"
-            value={formData.confirmPassword}
-            onChange={handleChange}
-            onBlur={handleBlur}
-            className={`w-full pl-10 pr-10 py-3 text-black  rounded-lg border-2 transition-all outline-none ${
-              errors.confirmPassword && touched.confirmPassword
-                ? "border-red-300 bg-red-50"
-                : "border-gray-200 hover:border-gray-400 focus:border-[#2C43EB]"
-            }`}
-          />
-          <button
-            type="button"
-            onClick={() => setShowConfirm((prev) => !prev)}
-            className="absolute right-3 top-1/2 -translate-y-1/2 text-gray-500 hover:text-gray-700">
-            {showConfirm ? <EyeOff size={18} /> : <Eye size={18} />}
-          </button>
-          {errors.confirmPassword && touched.confirmPassword && (
-            <p className="text-red-500 text-xs mt-1">
-              {errors.confirmPassword}
-            </p>
-          )}
-        </div>
+          return (
+            <div key={field} className="relative">
+              <Icon
+                className="absolute left-3 top-1/2 -translate-y-1/2 text-gray-400"
+                size={18}
+              />
+              <input
+                name={field}
+                type={
+                  isPasswordField
+                    ? show
+                      ? "text"
+                      : "password"
+                    : field === "email"
+                    ? "email"
+                    : "text"
+                }
+                placeholder={
+                  field === "confirmPassword"
+                    ? "Confirm password"
+                    : field.charAt(0).toUpperCase() + field.slice(1)
+                }
+                value={(formData as any)[field]}
+                onChange={handleChange}
+                onBlur={handleBlur}
+                className={`w-full pl-10 pr-10 py-3 text-black rounded-lg border-2 outline-none transition-all ${
+                  errors[field] && touched[field]
+                    ? "border-red-300 bg-red-50"
+                    : "border-gray-200 hover:border-gray-400 focus:border-[#2C43EB]"
+                }`}
+              />
+              {isPasswordField && (
+                <button
+                  type="button"
+                  onClick={() => setShow((prev) => !prev)}
+                  className="absolute right-3 top-1/2 -translate-y-1/2 text-gray-500 hover:text-gray-700">
+                  {show ? <EyeOff size={18} /> : <Eye size={18} />}
+                </button>
+              )}
+              {errors[field] && touched[field] && (
+                <motion.p
+                  initial={{ opacity: 0, y: -4 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  className="text-red-500 text-xs mt-1">
+                  {errors[field]}
+                </motion.p>
+              )}
+            </div>
+          );
+        })}
 
         {/* Divider */}
         <div className="flex items-center justify-center gap-2 my-6">
@@ -227,11 +229,11 @@ export default function SignUpForm() {
           <div className="border-t border-gray-300 flex-grow" />
         </div>
 
-        {/* Google Sign In */}
+        {/* Google Sign-In */}
         <button
           type="button"
           onClick={handleGoogleSignIn}
-          className="w-full flex items-center cursor-pointer justify-center gap-3 py-3 border-2 border-gray-300 rounded-lg hover:bg-gray-50 transition-all">
+          className="w-full flex items-center justify-center gap-3 py-3 border-2 border-gray-300 rounded-lg hover:bg-gray-50 transition-all">
           <svg viewBox="0 0 24 24" className="w-5 h-5">
             <path
               fill="#EA4335"
@@ -253,15 +255,23 @@ export default function SignUpForm() {
           <span className="text-gray-700 font-medium">Sign up with Google</span>
         </button>
 
-        {/* Create Account */}
+        {/* Submit */}
         <button
           type="submit"
           disabled={loading}
-          className="w-full py-3 bg-[#2C43EB] cursor-pointer text-white font-semibold rounded-4xl hover:bg-[#2336c9] transition-all duration-200 shadow-md hover:shadow-lg">
-          {loading ? "Creating Account..." : "Create Account"}
+          className={`w-full py-3 flex justify-center items-center gap-2 bg-[#2C43EB] text-white font-semibold rounded-lg transition-all duration-200 shadow-md hover:shadow-lg ${
+            loading ? "opacity-80 cursor-not-allowed" : "hover:bg-[#2336c9]"
+          }`}>
+          {loading ? (
+            <>
+              <Loader2 className="animate-spin" size={18} /> Creating Account...
+            </>
+          ) : (
+            "Create Account"
+          )}
         </button>
 
-        {/* Already have account */}
+        {/* Redirect */}
         <p className="text-center text-sm text-gray-600 mt-4">
           Already have an account?{" "}
           <Link
@@ -271,6 +281,6 @@ export default function SignUpForm() {
           </Link>
         </p>
       </form>
-    </div>
+    </motion.div>
   );
 }
