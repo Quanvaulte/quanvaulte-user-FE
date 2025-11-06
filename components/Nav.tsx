@@ -5,7 +5,7 @@ import { FC, useMemo } from "react";
 import { BadgeCheck, Flame } from "lucide-react";
 
 const Nav: FC = () => {
-  // this greeting is triggered based on time
+  // Dynamic greeting according to actual time
   const greeting = useMemo(() => {
     const hours = new Date().getHours();
     if (hours < 12) return "Good morning";
@@ -14,13 +14,14 @@ const Nav: FC = () => {
   }, []);
 
   return (
-    <nav className="w-full flex justify-between items-center px-6 py-3 bg-white shadow-sm sticky top-0 z-50">
+    <nav className="w-full flex justify-between items-center px-6 py-3 bg-white shadow-sm sticky top-0 z-40">
       {/* Left Section */}
       <div className="hidden sm:flex items-center gap-2 text-lg font-semibold text-gray-800">
         <span>{`David, ${greeting}`}</span>
         <span className="text-2xl">😎</span>
       </div>
 
+      {/* Compact greeting for small screens */}
       <div className="flex sm:hidden items-center gap-2 text-xl font-semibold text-gray-800">
         <span>😎</span>
       </div>
@@ -36,7 +37,7 @@ const Nav: FC = () => {
         {/* Streak */}
         <div className="hidden sm:flex items-center gap-2 bg-purple-100 text-purple-700 px-3 py-1 rounded-full text-sm font-medium cursor-pointer hover:bg-purple-200 transition">
           <Flame size={16} className="text-orange-500" />
-          <span>4 days streaks</span>
+          <span>4 days streak</span>
         </div>
 
         {/* Achievements */}

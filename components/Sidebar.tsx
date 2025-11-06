@@ -69,7 +69,7 @@ const Sidebar: React.FC = () => {
         </div>
       </aside>
 
-      {/* Overlay for mobile when sidebar is open */}
+      {/* Overlay (visible only on mobile when sidebar is open) */}
       {isOpen && (
         <div
           onClick={() => setIsOpen(false)}
