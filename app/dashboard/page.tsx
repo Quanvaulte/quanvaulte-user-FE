@@ -2,6 +2,8 @@
 
 import Sidebar from "@/components/Sidebar";
 import Nav from "@/components/Nav";
+import CourseCard from "@/components/CourseCard";
+import Heroquote from "@/components/Heroquote";
 
 export default function Page() {
   return (
@@ -17,8 +19,42 @@ export default function Page() {
         {/* Page Content */}
         <main className="flex-1 p-6">
           <div className="flex">
-            <div>Side 1</div>
-            <div>Side 2</div>
+            <div>
+              <p>Side 1</p>
+              <div>
+                <Heroquote />
+              </div>
+              <div className="flex gap-3">
+                <CourseCard
+                  title="Ai"
+                  imageSrc="/Rob.png"
+                  backgroundColor="bg-purple-500"
+                  buttonText="Start a career"
+                  patternClass="/Robo.png"
+                />
+                <CourseCard
+                  title="Ai"
+                  imageSrc="/Chip.png"
+                  backgroundColor="bg-blue-500"
+                  buttonText="Start a career"
+                  patternClass="/Line1-1.png"
+                />
+                <CourseCard
+                  title="Cybersecurity"
+                  imageSrc="/Lock.png"
+                  backgroundColor="bg-red-500"
+                  buttonText="Start a career"
+                  patternClass="/Robo.png"
+                />
+              </div>
+              <div>video section</div>
+              <div>community</div>
+            </div>
+            <div>
+              <p>Side 2</p>
+              <div>Unlock badges</div>
+              <div>Leaderboards</div>
+            </div>
           </div>
         </main>
       </div>
