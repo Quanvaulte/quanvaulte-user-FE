@@ -109,7 +109,7 @@ export default function MultiStepForm() {
         {/* Step 1: Why are you joining */}
         {currentStep === 1 && (
           <div>
-            <h2 className="text-4xl text-center font-baloo  font-bold mb-6">
+            <h2 className="text-4xl  font-baloo  font-bold mb-6">
               Why are you joining QuanVault?
             </h2>
             <div className="space-y-3">
@@ -340,7 +340,7 @@ export default function MultiStepForm() {
                   : nextStep // go to next step otherwise
               }
               disabled={!canContinue() || loading}
-              className={`flex-1 py-4 rounded-full font-semibold transition-colors ${
+              className={`flex-1 py-4 rounded-full cursor-pointer font-semibold transition-colors ${
                 canContinue()
                   ? "bg-[#2C43EB] text-white hover:bg-[#2C43EB]"
                   : "bg-gray-300 text-gray-500 cursor-not-allowed"
@@ -348,7 +348,7 @@ export default function MultiStepForm() {
               {loading
                 ? "Submitting..."
                 : currentStep === 5
-                ? "Finish" // ✅ last button says "Finish"
+                ? "Finish" 
                 : "Continue"}
             </button>
           </div>
