@@ -4,6 +4,8 @@ import Sidebar from "@/components/Sidebar";
 import Nav from "@/components/Nav";
 import CourseCard from "@/components/CourseCard";
 import Heroquote from "@/components/Heroquote";
+import Videosection from "@/components/Videosection";
+import DashboardCommunities from "@/components/Dashboardcommunities";
 
 export default function Page() {
   return (
@@ -47,8 +49,53 @@ export default function Page() {
                   patternClass="/Robo.png"
                 />
               </div>
-              <div>video section</div>
-              <div>community</div>
+              <div>
+                <p> Continue where you stopped</p>
+                <div className="flex gap-1">
+                  <Videosection
+                    thumbnail="/rectangle.png"
+                    lessonNumber={1}
+                    lessonsRemaining={100}
+                    courseTitle="Web Development"
+                    progressBar={50}
+                    levelCompleted={5}
+                    lastWatched="yesterday"
+                    alt="thumbnail photo"
+                  />
+                  <Videosection
+                    thumbnail="/rectangle.png"
+                    lessonNumber={1}
+                    lessonsRemaining={100}
+                    courseTitle="Web Development"
+                    progressBar={50}
+                    levelCompleted={5}
+                    lastWatched="yesterday"
+                    alt="thumbnail photo"
+                  />
+                  <Videosection
+                    thumbnail="/rectangle.png"
+                    lessonNumber={1}
+                    lessonsRemaining={100}
+                    courseTitle="Web Development"
+                    progressBar={50}
+                    levelCompleted={5}
+                    lastWatched="yesterday"
+                    alt="thumbnail photo"
+                  />
+                </div>
+              </div>
+              <div>
+                <p> My Communities</p>
+                <DashboardCommunities
+                  communityprofileImage="/Rob.png"
+                  alt="Community profile image"
+                  communityName="Cyber"
+                  username="Sharzy"
+                  message="tech is sweet"
+                  time="10:50"
+                  unreadCount={5}
+                />
+              </div>
             </div>
             <div>
               <p>Side 2</p>
