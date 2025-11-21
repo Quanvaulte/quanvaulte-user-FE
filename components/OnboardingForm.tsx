@@ -3,6 +3,7 @@ import { useState } from "react";
 import { useOnboarding } from "@/hooks/useOnboarding";
 import Image from "next/image";
 import { OnboardingData } from "@/hooks/useOnboarding";
+import { useRouter } from "next/navigation";
 export default function MultiStepForm() {
   const [currentStep, setCurrentStep] = useState(1);
   const [formData, setFormData] = useState({
@@ -15,7 +16,7 @@ export default function MultiStepForm() {
   const [finalData, setFinalData] = useState(null);
 
   const { onboardUser, loading, error, success } = useOnboarding();
-
+  const router = useRouter();
   const totalSteps = 5;
 
   const updateFormData = (field: string, value: string) => {
@@ -39,18 +40,17 @@ export default function MultiStepForm() {
           ? "School User"
           : "Parent User",
 
-
       user_type: (formData.joiningReason === "teacher"
         ? "school"
         : formData.joiningReason) as "student" | "school" | "parent",
 
-  number_of_initial_students_enroll: parseInt(formData.numberOfKids) || 1,
+      number_of_initial_students_enroll: parseInt(formData.numberOfKids) || 1,
 
       progress_tracker: formData.progressUpdates.includes("Weekly")
         ? "weekly"
         : formData.progressUpdates.includes("Monthly")
         ? "monthly"
-        : "daily", 
+        : "daily",
 
       is_learning_goal: formData.setGoals === "Yes",
       is_external_community: formData.externalCommunity === "Yes",
@@ -62,8 +62,10 @@ export default function MultiStepForm() {
       // setCurrentStep(6);
       console.log("✅ Onboarding success:", res);
       alert("Onboarding Success");
+      router.push("/dashboard");
     } catch (err) {
       console.error("❌ Onboarding failed:", err);
+      router.push("/dashboard");
     }
   };
 
@@ -85,9 +87,14 @@ export default function MultiStepForm() {
   };
 
   return (
-    <div className="min-h-screen flex items-center justify-center bg-white font-baloo ">
-      <div className="side-image relative h-screen hidden bg-white md:block w-1/2 ">
-        {/* <Image src="/onboardingBg.svg" fill className="object-cover bg-center" alt="" /> */}
+    <div className="min-h-screen flex items-center justify-between bg-white font-baloo ">
+      <div className="relative hidden md:block h-screen w-1/2">
+        <Image
+          src="/onboardBg.svg"
+          alt="Onboarding Background"
+          fill
+          className="object-cover"
+        />
       </div>
 
       <div className="w-1/2  text-black bg-white rounded-2xl px-8">
@@ -348,7 +355,7 @@ export default function MultiStepForm() {
               {loading
                 ? "Submitting..."
                 : currentStep === 5
-                ? "Finish" 
+                ? "Finish"
                 : "Continue"}
             </button>
           </div>
