@@ -64,10 +64,16 @@ export default function LoginForm() {
     if (Object.keys(newErrors).length > 0) return;
 
     const res = await handleLogin(formData);
+
     if (res) {
       localStorage.setItem("authToken", res.token);
-      localStorage.setItem("userId", res.userId);
-      router.push("/dashboard");
+      localStorage.setItem("userId", res.user?.id);
+
+      if (res.user?.is_onboarded === false) {
+        router.push("/onboarding");
+      } else {
+        router.push("/dashboard");
+      }
     }
   };
 
