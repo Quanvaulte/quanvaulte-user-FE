@@ -4,6 +4,7 @@ import Image from "next/image";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { useState, useEffect } from "react";
+import GoPro from "./GoPro";
 
 export default function AsideNav() {
   const pathname = usePathname();
@@ -88,6 +89,8 @@ export default function AsideNav() {
             );
           })}
         </nav>
+
+        <GoPro />
 
         {/* Logout pinned to bottom */}
         <div className="mt-auto pt-4">
