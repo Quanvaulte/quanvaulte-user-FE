@@ -3,9 +3,11 @@ import AsideNav from "@/components/AsideNav";
 export default function Layout({ children }: { children: React.ReactNode }) {
   return (
     <html lang="en">
-      <body className="flex">
+      <body className="flex min-h-screen overflow-hidden">
         <AsideNav />
-        <main className="">{children}</main>
+        <main className="flex">
+          {children}
+        </main>
       </body>
     </html>
   );
