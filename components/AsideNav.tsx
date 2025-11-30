@@ -10,13 +10,11 @@ export default function AsideNav() {
   const pathname = usePathname();
   const [collapsed, setCollapsed] = useState(false);
 
-  // Automatically collapse on smaller screens
+  // Auto-collapse on screen size
   useEffect(() => {
-    const handleResize = () => {
-      setCollapsed(window.innerWidth < 1024);
-    };
-
+    const handleResize = () => setCollapsed(window.innerWidth < 1024);
     handleResize();
+
     window.addEventListener("resize", handleResize);
     return () => window.removeEventListener("resize", handleResize);
   }, []);
@@ -36,78 +34,108 @@ export default function AsideNav() {
 
   return (
     <aside
-      className={`relative h-screen bg-blue-800 text-white flex-shrink-0 transition-all duration-200 
+      className={`
+        relative h-screen bg-blue-800 text-white flex-shrink-0 
+        transition-all duration-300 ease-in-out
+        backdrop-blur-md
+        border-r border-blue-700/30
         ${collapsed ? "w-20" : "w-64"}
       `}>
-      {/* Background */}
+      {/* Background Overlay */}
       <Image
         src="/asideTopBg.png"
         alt="Aside Background"
         fill
-        className="object-cover opacity-40"
+        className="object-cover opacity-50 pointer-events-none"
       />
 
-      {/* Content */}
+      {/* Actual Content */}
       <div className="relative z-10 h-full flex flex-col py-8 px-3">
-        {/* Header */}
-        <div className="flex items-center justify-center mb-10">
+        {/* Header / Branding */}
+        <div className="flex items-center justify-center mb-12">
           {!collapsed && (
-            <h1 className="text-yellow-300 text-center font-extrabold text-3xl whitespace-nowrap">
+            <h1 className="font-extrabold text-3xl text-yellow-300 tracking-wide drop-shadow">
               QuanVaulte
             </h1>
           )}
-
-          {/* Collapse Toggle (desktop only) */}
-          {/* <button
-            onClick={() => setCollapsed(!collapsed)}
-            className="hidden lg:flex text-yellow-300 p-2 hover:bg-blue-700 rounded transition-colors">
-            {collapsed ? ">" : "<"}
-          </button> */}
         </div>
 
-        {/* Main Navigation */}
-        <nav className="flex flex-col gap-8">
+        {/* Navigation Items */}
+        <nav className="flex flex-col gap-6">
           {navItems.map((item) => {
             const isActive = pathname === item.href;
+
             return (
               <Link
                 key={item.name}
                 href={item.href}
-                className={`flex items-center gap-4 px-4 py-3 rounded-lg transition-all 
-                  ${
-                    isActive
-                      ? "bg-white/30 text-white font-semibold"
-                      : "hover:bg-blue-700"
-                  }
-                  ${collapsed ? "justify-center px-0" : ""}
+                className={`
+                  group flex items-center gap-4 py-3 rounded-xl relative 
+                  transition-all duration-300 cursor-pointer
+                  ${collapsed ? "justify-center" : "pl-5 pr-4"}
+                  ${isActive ? "bg-white/25" : "hover:bg-blue-700/70 "}
                 `}>
-                <Image src={item.src} alt={item.name} width={22} height={22} />
+                <div
+                  className="
+                    transition-transform duration-300
+                    group-hover:scale-110 group-hover:rotate-3
+                  ">
+                  <Image
+                    src={item.src}
+                    alt={item.name}
+                    width={26}
+                    height={26}
+                    className="opacity-90"
+                  />
+                </div>
+
                 {!collapsed && (
-                  <span className="whitespace-nowrap">{item.name}</span>
+                  <span
+                    className={`
+                      transition-all duration-300 whitespace-nowrap
+                      ${
+                        isActive
+                          ? "font-semibold text-white"
+                          : "text-blue-100 group-hover:text-white"
+                      }
+                    `}>
+                    {item.name}
+                  </span>
                 )}
               </Link>
             );
           })}
         </nav>
 
-        <GoPro />
+        {/* Go Pro block */}
+        <div className="mt-10 px-1">
+          <GoPro />
+        </div>
 
-        {/* Logout pinned to bottom */}
-        <div className="mt-auto pt-4">
+        {/* Logout at bottom */}
+        <div className="mt-auto pt-5">
           <Link
             href={logoutItem.href}
-            className={`flex items-center py-3 rounded-lg transition-all text-white hover:bg-blue-700 
-              ${collapsed ? "justify-center px-0" : ""}
+            className={`
+              group flex items-center gap-4 py-3 rounded-xl 
+              transition-all duration-300 text-white
+              cursor-pointer
+              ${collapsed ? "justify-center" : "pl-5 pr-4"}
+              hover:bg-blue-700/70
             `}>
-            <Image
-              src={logoutItem.src}
-              alt={logoutItem.name}
-              width={100}
-              height={100}
-            />
+            <div className="transition-transform duration-300 group-hover:scale-110">
+              <Image
+                src={logoutItem.src}
+                alt={logoutItem.name}
+                width={26}
+                height={26}
+                className="opacity-90"
+              />
+            </div>
+
             {!collapsed && (
-              <span className="whitespace-nowrap font-bold ">
-                {logoutItem.name}
+              <span className="whitespace-nowrap font-bold text-white group-hover:text-white">
+                Logout
               </span>
             )}
           </Link>
