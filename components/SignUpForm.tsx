@@ -279,7 +279,7 @@ export default function SignUpForm() {
           disabled={loading}
           whileHover={!loading ? { scale: 1.01 } : {}}
           whileTap={!loading ? { scale: 0.99 } : {}}
-          className={`w-full flex items-center justify-center gap-2.5 py-2.5 border-2 border-gray-300 rounded-lg transition-all ${
+          className={`w-full flex items-center cursor-pointer justify-center gap-2.5 py-2.5 border-2 border-gray-300 rounded-lg transition-all ${
             loading
               ? "opacity-60 cursor-not-allowed"
               : "hover:bg-gray-50 hover:border-gray-400 active:bg-gray-100"
@@ -302,7 +302,7 @@ export default function SignUpForm() {
               d="M22.56 12.25c0-.78-.07-1.53-.2-2.25H12v4.26h5.92c-.26 1.37-1.04 2.53-2.21 3.31v2.77h3.57c2.08-1.92 3.28-4.74 3.28-8.09z"
             />
           </svg>
-          <span className="text-gray-700 font-medium text-sm">
+          <span className="text-gray-700 font-medium text-base">
             Sign up with Google
           </span>
         </motion.button>
@@ -313,7 +313,7 @@ export default function SignUpForm() {
           disabled={loading}
           whileHover={!loading ? { scale: 1.01 } : {}}
           whileTap={!loading ? { scale: 0.99 } : {}}
-          className={`w-full py-3 flex justify-center items-center gap-2 bg-[#2C43EB] text-white font-semibold rounded-xl transition-all duration-200 shadow-md ${
+          className={`w-full py-3 flex justify-center cursor-pointer items-center gap-2 bg-[#2C43EB] text-white font-semibold rounded-xl transition-all duration-200 shadow-md ${
             loading
               ? "opacity-70 cursor-not-allowed"
               : "hover:bg-[#2336c9] hover:shadow-lg active:shadow-md"
@@ -321,15 +321,15 @@ export default function SignUpForm() {
           {loading ? (
             <>
               <Loader2 className="animate-spin" size={16} />
-              <span className="text-sm">Creating Account...</span>
+              <span className="text-base">Creating Account...</span>
             </>
           ) : (
-            <span className="text-sm">Create Account</span>
+            <span className="text-base ">Create Account</span>
           )}
         </motion.button>
 
         {/* Login Redirect */}
-        <p className="text-center text-xs text-gray-600 mt-3">
+        <p className="text-center text-base text-gray-600 mt-3">
           Already have an account?{" "}
           <Link
             href="/login"
