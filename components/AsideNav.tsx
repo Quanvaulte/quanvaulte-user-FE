@@ -127,8 +127,8 @@ export default function AsideNav() {
               <Image
                 src={logoutItem.src}
                 alt={logoutItem.name}
-                width={26}
-                height={26}
+                width={80}
+                height={80}
                 className="opacity-90"
               />
             </div>
