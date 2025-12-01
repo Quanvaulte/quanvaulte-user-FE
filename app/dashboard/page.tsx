@@ -1,9 +1,11 @@
+import UnlockBadges from "@/components/ui/BadgesUnlock";
 import CodingCarousel from "@/components/ui/CodingCarousel";
 import CommunityList from "@/components/ui/CommunityList";
 import { CourseCard } from "@/components/ui/CourseCard";
 import CoursesGrid from "@/components/ui/CoursesGrid";
 import { courses } from "@/data";
 import { communities } from "@/data";
+import { badges } from "@/data";
 export default function DashboardPage() {
   return (
     <div className="flex w-full gap-4">
@@ -22,7 +24,9 @@ export default function DashboardPage() {
         <CommunityList communities={communities} />
       </div>
 
-      <div className="bg-amber-300 w-[20%] h-full "></div>
+      <div className=" w-[20%] h-full ">
+        <UnlockBadges badges={badges} />
+      </div>
     </div>
   );
 }
