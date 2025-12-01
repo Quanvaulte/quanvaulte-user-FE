@@ -1,46 +1,10 @@
 import CodingCarousel from "@/components/ui/CodingCarousel";
+import CommunityList from "@/components/ui/CommunityList";
 import { CourseCard } from "@/components/ui/CourseCard";
 import CoursesGrid from "@/components/ui/CoursesGrid";
-
+import { courses } from "@/data";
+import { communities } from "@/data";
 export default function DashboardPage() {
-  const courses: Array<{
-    image: string;
-    lessonNumber: number;
-    lessonsRemaining: number;
-    title: string;
-    progress: number;
-    lastWatched: string;
-    accentColor: "purple" | "blue" | "red";
-  }> = [
-    {
-      image: "/courses-placeholder.svg",
-      lessonNumber: 6,
-      lessonsRemaining: 56,
-      title: "How to pusha cyber levels",
-      progress: 30,
-      lastWatched: "yesterday",
-      accentColor: "purple",
-    },
-    {
-      image: "/courses-placeholder.svg",
-      lessonNumber: 5,
-      lessonsRemaining: 56,
-      title: "How to pusha cyber levels",
-      progress: 30,
-      lastWatched: "yesterday",
-      accentColor: "blue",
-    },
-    {
-      image: "/courses-placeholder.svg",
-      lessonNumber: 5,
-      lessonsRemaining: 56,
-      title: "How to pusha cyber levels",
-      progress: 30,
-      lastWatched: "yesterday",
-      accentColor: "red",
-    },
-  ];
-
   return (
     <div className="flex w-full gap-4">
       <div className="  h-full w-[80%]">
@@ -54,6 +18,8 @@ export default function DashboardPage() {
             <CourseCard key={index} {...course} />
           ))}
         </div>
+
+        <CommunityList communities={communities} />
       </div>
 
       <div className="bg-amber-300 w-[20%] h-full "></div>
