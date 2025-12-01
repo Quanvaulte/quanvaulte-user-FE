@@ -1,12 +1,10 @@
-"use client";
-
-import DashboardHeader from "@/components/DashboardHeader";
 
 export default function DashboardPage() {
   return (
     <div className="">
-      {/* <DashboardHeader /> */}
+    <h1 className="text-blue-700" >
+      Welcome to the Dashboard!
+    </h1>
     </div>
   );
 }
-  
