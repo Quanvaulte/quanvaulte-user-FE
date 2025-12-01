@@ -3,6 +3,7 @@ import CodingCarousel from "@/components/ui/CodingCarousel";
 import CommunityList from "@/components/ui/CommunityList";
 import { CourseCard } from "@/components/ui/CourseCard";
 import CoursesGrid from "@/components/ui/CoursesGrid";
+import Leaderboard from "@/components/ui/Leaderboard";
 import { courses } from "@/data";
 import { communities } from "@/data";
 import { badges } from "@/data";
@@ -26,6 +27,7 @@ export default function DashboardPage() {
 
       <div className=" w-[20%] h-full ">
         <UnlockBadges badges={badges} />
+        <Leaderboard/>
       </div>
     </div>
   );
