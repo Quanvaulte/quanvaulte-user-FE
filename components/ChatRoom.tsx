@@ -189,18 +189,24 @@ export default function ChatRoom() {
         </div>
 
         {/* Messages Area */}
-        <div className="flex-1 overflow-y-auto p-6">
+        <div className="flex-1 overflow-y-auto p-6 relative ">
+          <Image
+            src="/asideTopBg.png"
+            alt=""
+            fill
+            className="absolute inset-0 w-full h-full opacity-40 object-cover pointer-events-none"
+          />
           <div className="text-center mb-6">
             <span className="px-4 py-2 bg-purple-800 text-white text-sm rounded-full inline-block">
               Today
             </span>
           </div>
 
-          <div className="space-y-4">
+          <div className="space-y-4 ">
             {messages.map((msg) => (
               <div
                 key={msg.id}
-                className={`flex ${
+                className={`flex  ${
                   msg.isOwn ? "justify-end" : "justify-start"
                 }`}>
                 <div
@@ -215,7 +221,7 @@ export default function ChatRoom() {
                       msg.isOwn ? "items-end" : "items-start"
                     } flex flex-col`}>
                     {!msg.isOwn && (
-                      <span className="text-pink-300 text-sm font-medium mb-1">
+                      <span className="text-purple-300 text-base font-medium mb-1">
                         {msg.user}
                       </span>
                     )}
