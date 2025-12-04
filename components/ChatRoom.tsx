@@ -114,7 +114,7 @@ export default function ChatRoom() {
         </div>
 
         {/* Community Tabs */}
-        <div className="flex gap-2 p-4 bg-gray-100 rounded-full">
+        <div className="flex gap-2 py-2 bg-gray-100 rounded-full">
           <button
             onClick={() => setSelectedCommunity("My communities")}
             className={`px-4 py-2 font-bold cursor-pointer rounded-full text-base transition-colors ${
@@ -170,19 +170,21 @@ export default function ChatRoom() {
       </div>
 
       {/* Main Chat Area */}
-      <div className="flex-1 flex flex-col bg-gradient-to-br from-purple-700 via-purple-600 to-purple-700">
+      <div className="flex-1 flex flex-col bg-gradient-to-br from-blue-700 via-blue-600 to-purple-700">
         {/* Chat Header */}
         <div className="bg-white px-6 py-4 flex items-center justify-between border-b border-gray-200">
           <div className="flex items-center gap-3">
-            <div className="w-12 h-12 rounded-full bg-gradient-to-br from-teal-400 to-teal-600"></div>
+            <div className="w-10 h-10 rounded-full bg-gradient-to-br from-teal-400 to-teal-600 relative flex-shrink-0">
+              <Image src="/communityProfile.svg" alt="" fill />
+            </div>
             <div>
               <h2 className="font-bold text-gray-800">Cybergogs</h2>
               <p className="text-sm text-gray-500">15 member online</p>
             </div>
           </div>
-          <button className="px-4 py-2 bg-pink-100 text-pink-600 rounded-lg text-sm font-medium hover:bg-pink-200 transition-colors flex items-center gap-2">
-            <LogOut size={16} />
+          <button className="px-4 py-2 cursor-pointer font-bold bg-pink-100 text-pink-600 rounded-full text-base hover:bg-pink-200 transition-colors flex items-center gap-2">
             Leave Group
+            <Image src="/logout.svg" alt="" width={56} height={56} />
           </button>
         </div>
 
